@@ -10,10 +10,11 @@ function convertAssetItemForChart(itemInfo) {
 
   const longestBalances = findLongestBalances(accounts)
   const dateLabels = getDateLabels(longestBalances)
+  const bankName = getBankName(institutionName)
 
   return {
     labels: dateLabels,
-    bankName: institutionName,
+    bankName: bankName,
     accounts: processedAccounts,
   }
 }
@@ -54,6 +55,14 @@ function findLongestBalances(accounts) {
   }
 
   return longestBalances
+}
+
+function getBankName(institutionName) {
+  if (institutionName.toLowerCase().includes('bank')) {
+    return institutionName
+  }
+
+  return `${institutionName} Bank`
 }
 
 function getDateLabels(balances) {
