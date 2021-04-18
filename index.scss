@@ -12,6 +12,7 @@ html {
 a {
   color: #43aa8b;
   text-decoration: none;
+  transition: color 0.3s;
 
   &:hover {
     color: #16886b;
@@ -56,6 +57,7 @@ body {
   max-width: 480px;
   margin: 24px auto;
   padding: 24px;
+  transition: border-color 0.3s;
 
   &.highlight {
     border-color: purple;
@@ -72,6 +74,7 @@ body {
     background: #eee;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s;
 
     &:hover {
       background: #ddd;
