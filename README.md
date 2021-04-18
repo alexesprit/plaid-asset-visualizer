@@ -2,6 +2,8 @@
 
 Visualize your Plaid asset reports.
 
+An online instance available at [plaid.alexesprit.com](https://plaid.alexesprit.com/).
+
 ## Development
 
 ```sh
