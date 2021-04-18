@@ -14,34 +14,37 @@
   </head>
 
   <body>
-    <header class="container header wrapper">
-      <h1 class="header__title">Plaid Asset Visualizer</h1>
-      <div class="header__desc">Visualize your Plaid asset reports.</div>
+    <header class="header wrapper">
+      <div class="container">
+        <h1 class="header__title">Plaid Asset Visualizer</h1>
+        <div class="header__desc">Visualize your Plaid asset reports.</div>
+      </div>
     </header>
 
-    <section class="container wrapper">
-      <div class="drop-area">
-        <p class="drop-area__desc">
-          Select a Plaid asset report in JSON format using the file chooser
-          dialog or drag and drop it on this area.
-        </p>
-        <form>
-          <label class="drop-area__button">
-            Choose an asset
-            <input
-              type="file"
-              class="drop-area__input"
-              accept="application/json"
-            />
-          </label>
-        </form>
-      </div>
-    </section>
+    <main class="main wrapper">
+      <section class="container">
+        <div class="drop-area">
+          <p class="drop-area__desc">
+            Select a Plaid asset report in JSON format using the file chooser
+            dialog or drag and drop it on this area.
+          </p>
+          <form>
+            <label class="drop-area__button">
+              Choose an asset
+              <input
+                type="file"
+                class="drop-area__input"
+                accept="application/json"
+              />
+            </label>
+          </form>
+        </div>
+      </section>
 
-    <section class="container wrapper">
-      <div class="charts"></div>
-    </section>
-
+      <section class="container">
+        <div class="charts"></div>
+      </section>
+    </main>
     <script src="index.js"></script>
   </body>
 </html>
