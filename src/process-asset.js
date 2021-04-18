@@ -22,7 +22,9 @@ function convertAssetItemForChart(itemInfo) {
 
 function convertAccountForChart(account) {
   const { historicalBalances, name } = account
-  const data = historicalBalances.map(convertBalanceForChart)
+  const data = historicalBalances
+    .filter(filterLeadingZeroBalance)
+    .map(convertBalanceForChart)
 
   return { data, name }
 }
@@ -31,15 +33,25 @@ function convertBalanceForChart(balance) {
   return balance.current
 }
 
+function filterLeadingZeroBalance(balance, index, balances) {
+  const prevBalance = balances[index - 1]
+  if (prevBalance && isBalancePresent(prevBalance)) {
+    return true
+  }
+
+  return isBalancePresent(balance)
+}
+
 function findLongestBalances(accounts) {
   let longestBalances = []
 
   for (const account of accounts) {
     const { historicalBalances } = account
+    const balances = historicalBalances.filter(filterLeadingZeroBalance)
 
-    const daysCount = historicalBalances.length
+    const daysCount = balances.length
     if (longestBalances.length < daysCount) {
-      longestBalances = historicalBalances
+      longestBalances = balances
     }
   }
 
