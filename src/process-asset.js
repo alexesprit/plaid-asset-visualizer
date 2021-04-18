@@ -1,6 +1,4 @@
-export function processAsset(assetContents) {
-  const asset = JSON.parse(assetContents)
-
+export function processAsset(asset) {
   return asset.items.map(convertAssetItemForChart)
 }
 

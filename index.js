@@ -58,7 +58,8 @@ function readAsset(file) {
   reader.readAsText(file)
 
   reader.onloadend = function () {
-    const chartData = processAsset(reader.result)
+    const asset = JSON.parse(reader.result)
+    const chartData = processAsset(asset)
 
     renderCharts(chartData)
   }
