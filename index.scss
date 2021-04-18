@@ -1,0 +1,83 @@
+html,
+input,
+button {
+  font-family: Inter, sans-serif;
+}
+
+html {
+  color: #242529;
+  font-size: 16px;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: auto;
+}
+
+.container {
+  margin: 24px auto;
+}
+
+.header {
+  text-align: center;
+
+  &__title {
+    margin: 0 0 16px;
+    font-size: 36px;
+    font-weight: 800;
+  }
+
+  &__desc {
+    font-size: 16px;
+  }
+}
+
+.drop-area {
+  border: 1px dashed #ccc;
+  border-radius: 24px;
+  max-width: 480px;
+  margin: 24px auto;
+  padding: 24px;
+
+  &.highlight {
+    border-color: purple;
+  }
+
+  &__desc {
+    margin: 0 0 16px;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background: #eee;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+      background: #ddd;
+    }
+  }
+
+  &__input {
+    display: none;
+  }
+}
+
+.charts {
+  .chart {
+    margin: auto;
+
+    &__header {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 0 0 16px;
+      text-align: center;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 48px;
+    }
+  }
+}

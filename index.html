@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <head>
+    <meta charset="utf-8" />
+    <title>Plaid Asset Vizualizer</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="index.scss" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/inter-ui@3.18.0/inter.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="container header wrapper">
+      <h1 class="header__title">Plaid Asset Visualizer</h1>
+      <div class="header__desc">Visualize your Plaid asset reports.</div>
+    </header>
+
+    <section class="container wrapper">
+      <div class="drop-area">
+        <p class="drop-area__desc">
+          Select a Plaid asset report in JSON format using the file chooser
+          dialog or drag and drop it on this area.
+        </p>
+        <form>
+          <label class="drop-area__button">
+            Choose an asset
+            <input
+              type="file"
+              class="drop-area__input"
+              accept="application/json"
+            />
+          </label>
+        </form>
+      </div>
+    </section>
+
+    <section class="container wrapper">
+      <div class="charts"></div>
+    </section>
+
+    <script src="index.js"></script>
+  </body>
+</html>
