@@ -66,6 +66,8 @@ function renderChart(chartData) {
       },
       elements: {
         point: {
+          hitRadius: 8,
+          hoverRadius: 8,
           radius: 0,
         },
       },
