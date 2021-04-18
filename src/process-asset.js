@@ -54,5 +54,11 @@ function getDateLabels(balances) {
 }
 
 function shouldProcessAccount(account) {
-  return account.historicalBalances.length > 0
+  const { historicalBalances } = account
+
+  return historicalBalances.some(isBalancePresent)
+}
+
+function isBalancePresent(balance) {
+  return balance.current !== 0
 }
