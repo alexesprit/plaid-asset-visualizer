@@ -50,6 +50,12 @@ function renderChart(chartData) {
       datasets: datasets,
     },
     options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Balance chart',
+        },
+      },
       scales: {
         y: {
           beginAtZero: true,
