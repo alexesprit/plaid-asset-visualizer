@@ -73,8 +73,9 @@ body {
     border: 1px solid #ccc;
     background: #eee;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: background-color 0.3s;
+    font-size: 14px;
 
     &:hover {
       background: #ddd;
