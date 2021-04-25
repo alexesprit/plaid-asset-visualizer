@@ -190,13 +190,13 @@ li {
   }
 
   &__date {
-    width: 16%;
+    width: 80px;
     color: #737479;
     text-align: left;
   }
 
   &__desc {
-    width: 68%;
+    width: calc(100% - 80px - 70px);
     text-align: left;
 
     white-space: nowrap;
@@ -205,7 +205,7 @@ li {
   }
 
   &__amount {
-    width: 16%;
+    width: 70px;
     text-align: right;
 
     &.debit {
