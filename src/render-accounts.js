@@ -1,4 +1,4 @@
-import { convertDate, titleize } from './util'
+import { convertDate, formatCurrency, titleize } from './util'
 
 export function renderAccounts(asset) {
   const { items } = asset
@@ -146,7 +146,7 @@ function createTransactionElement(dateAsStr, desc, amount) {
   const colorClass = amount < 0 ? 'debit' : 'credit'
   const amountEl = document.createElement('span')
   amountEl.classList.add('transaction__amount', colorClass)
-  amountEl.textContent = `$${Math.abs(amount)}`
+  amountEl.textContent = `$${formatCurrency(Math.abs(amount))}`
 
   container.append(dateEl, descEl, amountEl)
   return container

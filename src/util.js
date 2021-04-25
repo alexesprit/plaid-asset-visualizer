@@ -9,6 +9,16 @@ export function attachBinaryData(el, filename, dataAsStr, blobType) {
   el.download = filename
 }
 
+export function formatCurrency(number, n = 2, x = 3, s = ',', c = '.') {
+  const re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')'
+  const num = number.toFixed(Math.max(0, ~~n))
+
+  return (c ? num.replace('.', c) : num).replace(
+    new RegExp(re, 'g'),
+    '$&' + (s || ',')
+  )
+}
+
 export function getFilename(filenameWithExt) {
   return filenameWithExt.split('.')[0]
 }
