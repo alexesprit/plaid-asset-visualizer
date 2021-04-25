@@ -12,29 +12,31 @@ export function renderAccounts(asset) {
     const { accounts, institutionName } = item
 
     for (const account of accounts) {
-      const { transactions, owners, name } = account
+      const { transactions } = account
       if (transactions.length > 0 && hintElement.hidden) {
         hintElement.hidden = false
       }
 
-      const nameEl = createNameElement(name, institutionName)
-      const listEl = createListElement()
-      const spoilerEl = createSpoilerElement()
-      const transactionsEl = createTransactionsContainer()
-      const accountEl = createAccountElement()
+      const accountEl = createAccountSummaryElement()
+      renderAccountSummary(account, institutionName, accountEl)
 
-      spoilerEl.append(listEl)
-      accountEl.append(nameEl)
-      transactionsEl.append(spoilerEl)
-      globalContainer.append(accountEl, transactionsEl)
-
-      renderTransactionsList(transactions, listEl)
-      renderOwnersInfo(owners, accountEl)
+      globalContainer.append(accountEl)
     }
   }
 }
 
-function renderTransactionsList(transactions, listEl) {
+function renderAccountSummary(account, bankName, container) {
+  const { transactions, owners, name } = account
+
+  const nameEl = createNameElement(name, bankName)
+  const transactionsEl = createTransactionsContainer(transactions)
+  const ownersEl = createOwnersInfoElement(owners)
+
+  container.append(nameEl, ownersEl, transactionsEl)
+}
+
+function createTransactionsContainer(transactions) {
+  const listEl = createListElement()
   const reversedTransactions = [...transactions].reverse()
 
   for (const transaction of reversedTransactions) {
@@ -49,9 +51,16 @@ function renderTransactionsList(transactions, listEl) {
 
     listEl.append(transactionEl)
   }
+
+  const spoilerEl = createSpoilerElement()
+  spoilerEl.append(listEl)
+
+  return spoilerEl
 }
 
-function renderOwnersInfo(owners, container) {
+function createOwnersInfoElement(owners) {
+  const ownersEl = createOwnersElement()
+
   for (const owner of owners) {
     const { phoneNumbers, emails, names } = owner
 
@@ -59,8 +68,10 @@ function renderOwnersInfo(owners, container) {
     const addressList = createInfoList(emails.map(convertEmail))
     const phoneList = createInfoList(phoneNumbers)
 
-    container.append(namesList, addressList, phoneList)
+    ownersEl.append(namesList, addressList, phoneList)
   }
+
+  return ownersEl
 }
 
 function getGlobalContainer() {
@@ -71,16 +82,16 @@ function getHintElement() {
   return document.querySelector('.hint')
 }
 
-function createAccountElement() {
+function createAccountSummaryElement() {
   const container = document.createElement('div')
   container.classList.add('account-summary')
 
   return container
 }
 
-function createTransactionsContainer() {
+function createOwnersElement() {
   const container = document.createElement('div')
-  container.classList.add('transactions__info')
+  container.classList.add('owner')
 
   return container
 }
