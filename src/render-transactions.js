@@ -107,6 +107,7 @@ function createTransactionElement(dateAsStr, desc, amount) {
 
   const descEl = document.createElement('span')
   descEl.classList.add('transaction__desc')
+  descEl.title = desc
   descEl.textContent = desc
 
   const colorClass = amount < 0 ? 'negative' : 'positive'
