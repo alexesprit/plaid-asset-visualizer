@@ -177,11 +177,11 @@ li {
     width: 16%;
     text-align: right;
 
-    &.positive {
+    &.debit {
       color: #16886b;
     }
 
-    &.negative {
+    &.credit {
       color: #d4122a;
     }
   }

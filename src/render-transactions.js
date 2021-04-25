@@ -110,7 +110,7 @@ function createTransactionElement(dateAsStr, desc, amount) {
   descEl.title = desc
   descEl.textContent = desc
 
-  const colorClass = amount < 0 ? 'negative' : 'positive'
+  const colorClass = amount < 0 ? 'debit' : 'credit'
   const amountEl = document.createElement('span')
   amountEl.classList.add('transaction__amount', colorClass)
   amountEl.textContent = `$${Math.abs(amount)}`
