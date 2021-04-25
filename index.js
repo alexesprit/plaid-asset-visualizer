@@ -2,7 +2,9 @@ import Chart from 'chart.js/auto'
 
 import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
+import { attachBinaryData, getFilename } from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
+import { convertAssetToCsv } from './src/convert-asset'
 
 setupDragArea()
 setupAssetInput()
@@ -63,7 +65,19 @@ function readAsset(file) {
     const normalizedAsset = normalizeAsset(rawAsset)
 
     const assetAsChart = processAsset(normalizedAsset)
+    const assetAsCsv = convertAssetToCsv(normalizedAsset)
+    const filename = getFilename(file.name, 'csv')
 
     renderCharts(assetAsChart)
+    applyDataForDownloadButton(assetAsCsv, filename)
   }
+}
+
+function applyDataForDownloadButton(assetAsCsv, filename) {
+  const fullname = `${filename}.csv`
+
+  const downloadButton = document.querySelector('.drop-area__download')
+  downloadButton.hidden = false
+
+  attachBinaryData(downloadButton, fullname, assetAsCsv, 'text/csv')
 }

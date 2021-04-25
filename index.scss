@@ -76,8 +76,10 @@ body {
     border-radius: 8px;
     transition: background-color 0.3s;
     font-size: 14px;
+    color: initial;
 
     &:hover {
+      color: initial;
       background: #ddd;
     }
   }
@@ -125,4 +127,8 @@ body {
       color: #d4122a;
     }
   }
+}
+
+[hidden] {
+  display: none !important;
 }
