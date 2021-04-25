@@ -20,12 +20,13 @@ function convertAssetItemForChart(itemInfo) {
 }
 
 function convertAccountForChart(account) {
-  const { historicalBalances, name } = account
+  const { historicalBalances, name, mask } = account
   const data = historicalBalances
     .filter(filterLeadingZeroBalance)
     .map(convertBalanceForChart)
+  const fullName = normalizeAccountName(name, mask)
 
-  return { data, name }
+  return { data, name: fullName }
 }
 
 function convertBalanceForChart(balance) {
@@ -80,4 +81,12 @@ function shouldProcessAccount(account) {
 
 function isBalancePresent(balance) {
   return balance.current !== 0
+}
+
+function normalizeAccountName(accountName, mask) {
+  if (accountName.includes(mask)) {
+    return accountName
+  }
+
+  return `${accountName} (${mask})`
 }
