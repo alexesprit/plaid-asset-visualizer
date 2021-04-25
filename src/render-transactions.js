@@ -75,11 +75,11 @@ function createNameElement(accountName, bankName) {
   const nameEl = document.createElement('div')
   nameEl.classList.add('transactions__name')
 
-  const accountNameEl = document.createElement('span')
+  const accountNameEl = document.createElement('div')
   accountNameEl.classList.add('transactions__account-name')
   accountNameEl.textContent = accountName
 
-  const bankNameEl = document.createElement('span')
+  const bankNameEl = document.createElement('div')
   bankNameEl.classList.add('transactions__bank-name')
   bankNameEl.textContent = bankName
 
