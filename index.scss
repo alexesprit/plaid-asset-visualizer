@@ -115,7 +115,7 @@ li {
 
 .transactions {
   max-width: 480px;
-  margin: auto;
+  margin: auto auto 36px;
 
   &__info {
     &:not(:last-child) {
@@ -185,6 +185,11 @@ li {
       color: #d4122a;
     }
   }
+}
+
+.hint {
+  color: #737479;
+  font-size: 12px;
 }
 
 .main {

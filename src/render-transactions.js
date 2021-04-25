@@ -3,13 +3,19 @@ import { convertDate } from './util'
 export function renderTransactions(asset) {
   const { items } = asset
   const globalContainer = getGlobalContainer()
+  const hintElement = getHintElement()
+
   globalContainer.innerHTML = ''
+  hintElement.hidden = true
 
   for (const item of items) {
     const { accounts, institutionName } = item
 
     for (const account of accounts) {
       const { transactions, name } = account
+      if (transactions.length > 0 && hintElement.hidden) {
+        hintElement.hidden = false
+      }
 
       const nameEl = createNameElement(name, institutionName)
       const listEl = createListElement()
@@ -46,6 +52,10 @@ function getGlobalContainer() {
   return document.querySelector('.transactions')
 }
 
+function getHintElement() {
+  return document.querySelector('.hint')
+}
+
 function createTransactionsContainer() {
   const container = document.createElement('div')
   container.classList.add('transactions__info')
@@ -56,6 +66,7 @@ function createTransactionsContainer() {
 function createListElement() {
   const listEl = document.createElement('ul')
   listEl.classList.add('transactions__list')
+  listEl.addEventListener('click', handleOnListClick)
 
   return listEl
 }
@@ -105,4 +116,17 @@ function createTransactionElement(dateAsStr, desc, amount) {
 
   container.append(dateEl, descEl, amountEl)
   return container
+}
+
+function handleOnListClick(evt) {
+  const { target, altKey } = evt
+
+  if (altKey) {
+    collapseDetails(target)
+  }
+}
+
+function collapseDetails(element) {
+  const closestSpoilerEl = element.closest('details')
+  closestSpoilerEl.open = false
 }
