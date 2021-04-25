@@ -37,8 +37,13 @@ li {
   margin: auto;
 }
 
+.wrapper-small {
+  max-width: 480px;
+  margin: auto;
+}
+
 .container {
-  margin: 24px auto;
+  padding: 16px;
 }
 
 .header {
@@ -58,8 +63,6 @@ li {
 .drop-area {
   border: 1px dashed #ccc;
   border-radius: 24px;
-  max-width: 480px;
-  margin: 24px auto;
   padding: 24px;
   transition: border-color 0.3s;
 
