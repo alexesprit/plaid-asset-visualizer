@@ -6,7 +6,7 @@
   "author": "Alexey <alex.esprit@gmail.com>",
   "private": true,
   "scripts": {
-    "build": "parcel build index.html",
+    "build": "parcel build index.html --no-scope-hoist",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "start": "npm run build && npm run dev",
@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "chart.js": "^3.1.1",
+    "exceljs": "^4.2.1",
     "parcel": "^2.0.0-beta.2"
   }
 }

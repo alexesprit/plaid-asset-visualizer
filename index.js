@@ -4,7 +4,7 @@ import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
 import { attachBinaryData, getFilename, setTitle } from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
-import { convertAssetToCsv } from './src/convert-asset'
+import { convertAssetToXls } from './src/convert-asset'
 import { renderAccounts } from './src/render-accounts'
 
 setupDragArea()
@@ -61,26 +61,32 @@ function readAsset(file) {
   const reader = new FileReader()
   reader.readAsText(file)
 
-  reader.onloadend = function () {
+  reader.onloadend = async () => {
     const rawAsset = JSON.parse(reader.result)
     const normalizedAsset = normalizeAsset(rawAsset)
 
     const assetAsChart = processAsset(normalizedAsset)
-    const assetAsCsv = convertAssetToCsv(normalizedAsset)
     const filename = getFilename(file.name)
 
     setTitle(filename)
     renderCharts(assetAsChart)
     renderAccounts(normalizedAsset)
-    applyDataForDownloadButton(assetAsCsv, filename)
+
+    const assetAsBinary = await convertAssetToXls(normalizedAsset)
+    applyDataForDownloadButton(assetAsBinary, filename)
   }
 }
 
-function applyDataForDownloadButton(assetAsCsv, filename) {
-  const fullname = `${filename}.csv`
+function applyDataForDownloadButton(assetAsBinary, filename) {
+  const fullname = `${filename}.xlsx`
 
   const downloadButton = document.querySelector('.drop-area__download')
   downloadButton.hidden = false
 
-  attachBinaryData(downloadButton, fullname, assetAsCsv, 'text/csv')
+  attachBinaryData(
+    downloadButton,
+    fullname,
+    assetAsBinary,
+    'application/octet-stream'
+  )
 }
