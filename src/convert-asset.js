@@ -1,3 +1,5 @@
+import { convertDate } from './util'
+
 export function convertAssetToCsv(asset) {
   const outputBuf = []
 
@@ -28,8 +30,4 @@ export function convertAssetToCsv(asset) {
 
 function convertBalance(balance) {
   return balance.toString().replace('.', ',')
-}
-
-function convertDate(timestamp) {
-  return new Date(timestamp).toLocaleDateString()
 }

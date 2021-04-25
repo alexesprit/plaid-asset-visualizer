@@ -8,3 +8,7 @@ export function attachBinaryData(el, filename, dataAsStr, blobType) {
 export function getFilename(filenameWithExt) {
   return filenameWithExt.split('.')[0]
 }
+
+export function convertDate(timestamp) {
+  return new Date(timestamp).toLocaleDateString()
+}

@@ -5,6 +5,7 @@ import { renderCharts } from './src/render-chart'
 import { attachBinaryData, getFilename } from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
 import { convertAssetToCsv } from './src/convert-asset'
+import { renderTransactions } from './src/render-transactions'
 
 setupDragArea()
 setupAssetInput()
@@ -69,6 +70,7 @@ function readAsset(file) {
     const filename = getFilename(file.name, 'csv')
 
     renderCharts(assetAsChart)
+    renderTransactions(normalizedAsset)
     applyDataForDownloadButton(assetAsCsv, filename)
   }
 }
