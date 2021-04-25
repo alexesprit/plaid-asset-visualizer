@@ -2,6 +2,7 @@ import Chart from 'chart.js/auto'
 
 import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
+import { normalizeAsset } from './src/normalize-asset'
 
 setupDragArea()
 setupAssetInput()
@@ -58,9 +59,11 @@ function readAsset(file) {
   reader.readAsText(file)
 
   reader.onloadend = function () {
-    const asset = JSON.parse(reader.result)
-    const chartData = processAsset(asset)
+    const rawAsset = JSON.parse(reader.result)
+    const normalizedAsset = normalizeAsset(rawAsset)
 
-    renderCharts(chartData)
+    const assetAsChart = processAsset(normalizedAsset)
+
+    renderCharts(assetAsChart)
   }
 }

@@ -4,9 +4,7 @@ export function processAsset(asset) {
 
 function convertAssetItemForChart(itemInfo) {
   const { accounts, institutionName } = itemInfo
-  const processedAccounts = accounts
-    .filter(shouldProcessAccount)
-    .map(convertAccountForChart)
+  const processedAccounts = accounts.map(convertAccountForChart)
 
   const longestBalances = findLongestBalances(accounts)
   const dateLabels = getDateLabels(longestBalances)
@@ -20,26 +18,14 @@ function convertAssetItemForChart(itemInfo) {
 }
 
 function convertAccountForChart(account) {
-  const { historicalBalances, name, mask } = account
-  const data = historicalBalances
-    .filter(filterLeadingZeroBalance)
-    .map(convertBalanceForChart)
-  const fullName = normalizeAccountName(name, mask)
+  const { historicalBalances, name } = account
+  const data = historicalBalances.map(convertBalanceForChart)
 
-  return { data, name: fullName }
+  return { data, name }
 }
 
 function convertBalanceForChart(balance) {
   return balance.current
-}
-
-function filterLeadingZeroBalance(balance, index, balances) {
-  const prevBalance = balances[index - 1]
-  if (prevBalance && isBalancePresent(prevBalance)) {
-    return true
-  }
-
-  return isBalancePresent(balance)
 }
 
 function findLongestBalances(accounts) {
@@ -47,11 +33,10 @@ function findLongestBalances(accounts) {
 
   for (const account of accounts) {
     const { historicalBalances } = account
-    const balances = historicalBalances.filter(filterLeadingZeroBalance)
 
-    const daysCount = balances.length
+    const daysCount = historicalBalances.length
     if (longestBalances.length < daysCount) {
-      longestBalances = balances
+      longestBalances = historicalBalances
     }
   }
 
@@ -71,22 +56,4 @@ function getDateLabels(balances) {
     const dateObj = new Date(balance.date)
     return dateObj.toLocaleDateString()
   })
-}
-
-function shouldProcessAccount(account) {
-  const { historicalBalances } = account
-
-  return historicalBalances.some(isBalancePresent)
-}
-
-function isBalancePresent(balance) {
-  return balance.current !== 0
-}
-
-function normalizeAccountName(accountName, mask) {
-  if (accountName.includes(mask)) {
-    return accountName
-  }
-
-  return `${accountName} (${mask})`
 }
