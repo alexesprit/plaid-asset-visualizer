@@ -1,3 +1,7 @@
+export function setTitle(subtitle) {
+  document.title = `Plaid Asset Vizualizer | ${subtitle}`
+}
+
 export function attachBinaryData(el, filename, dataAsStr, blobType) {
   const blob = new Blob([dataAsStr], { type: blobType })
 

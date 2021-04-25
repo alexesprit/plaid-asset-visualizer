@@ -2,7 +2,7 @@ import Chart from 'chart.js/auto'
 
 import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
-import { attachBinaryData, getFilename } from './src/util'
+import { attachBinaryData, getFilename, setTitle } from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
 import { convertAssetToCsv } from './src/convert-asset'
 import { renderAccounts } from './src/render-accounts'
@@ -67,8 +67,9 @@ function readAsset(file) {
 
     const assetAsChart = processAsset(normalizedAsset)
     const assetAsCsv = convertAssetToCsv(normalizedAsset)
-    const filename = getFilename(file.name, 'csv')
+    const filename = getFilename(file.name)
 
+    setTitle(filename)
     renderCharts(assetAsChart)
     renderAccounts(normalizedAsset)
     applyDataForDownloadButton(assetAsCsv, filename)
