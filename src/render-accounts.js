@@ -202,7 +202,6 @@ function getUniqueEntries(entries) {
 
   for (const entry of entries) {
     const { data } = entry
-    console.log(data)
 
     if (!uniqueData.has(data)) {
       uniqueData.add(data)
