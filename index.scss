@@ -123,19 +123,6 @@ li {
     }
   }
 
-  &__name {
-    margin-bottom: 8px;
-  }
-
-  &__account-name {
-    font-weight: 600;
-  }
-
-  &__bank-name {
-    font-size: 14px;
-    color: #737479;
-  }
-
   &__list {
     list-style: none;
   }
@@ -146,6 +133,55 @@ li {
 
     :not(details[open]) & {
       margin-bottom: 8px;
+    }
+  }
+}
+
+.account-summary {
+  font-size: 14px;
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
+}
+
+.account {
+  margin-bottom: 8px;
+
+  &__name {
+    font-weight: 600;
+  }
+
+  &__bank {
+    font-size: 14px;
+    color: #737479;
+  }
+}
+
+.owner {
+  margin-bottom: 8px;
+
+  &__row {
+    display: flex;
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+
+    > :first-child {
+      font-weight: 600;
+      width: 20%;
+    }
+
+    > :last-child {
+      width: 80%;
+    }
+  }
+
+  &__info-list {
+    list-style: none;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
     }
   }
 }

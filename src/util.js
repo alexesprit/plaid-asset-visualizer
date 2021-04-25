@@ -12,3 +12,11 @@ export function getFilename(filenameWithExt) {
 export function convertDate(timestamp) {
   return new Date(timestamp).toLocaleDateString()
 }
+
+export function titleize(sentence) {
+  return sentence.split(' ').map(titleizeWord).join(' ')
+}
+
+function titleizeWord(word) {
+  return word[0].toUpperCase() + word.slice(1).toLowerCase()
+}

@@ -1,6 +1,6 @@
-import { convertDate } from './util'
+import { convertDate, titleize } from './util'
 
-export function renderTransactions(asset) {
+export function renderAccounts(asset) {
   const { items } = asset
   const globalContainer = getGlobalContainer()
   const hintElement = getHintElement()
@@ -12,7 +12,7 @@ export function renderTransactions(asset) {
     const { accounts, institutionName } = item
 
     for (const account of accounts) {
-      const { transactions, name } = account
+      const { transactions, owners, name } = account
       if (transactions.length > 0 && hintElement.hidden) {
         hintElement.hidden = false
       }
@@ -21,12 +21,15 @@ export function renderTransactions(asset) {
       const listEl = createListElement()
       const spoilerEl = createSpoilerElement()
       const transactionsEl = createTransactionsContainer()
+      const accountEl = createAccountElement()
 
       spoilerEl.append(listEl)
-      transactionsEl.append(nameEl, spoilerEl)
-      globalContainer.append(transactionsEl)
+      accountEl.append(nameEl)
+      transactionsEl.append(spoilerEl)
+      globalContainer.append(accountEl, transactionsEl)
 
       renderTransactionsList(transactions, listEl)
+      renderOwnersInfo(owners, accountEl)
     }
   }
 }
@@ -48,12 +51,31 @@ function renderTransactionsList(transactions, listEl) {
   }
 }
 
+function renderOwnersInfo(owners, container) {
+  for (const owner of owners) {
+    const { phoneNumbers, emails, names } = owner
+
+    const namesList = createInfoList(names.map(convertName))
+    const addressList = createInfoList(emails.map(convertEmail))
+    const phoneList = createInfoList(phoneNumbers)
+
+    container.append(namesList, addressList, phoneList)
+  }
+}
+
 function getGlobalContainer() {
   return document.querySelector('.transactions')
 }
 
 function getHintElement() {
   return document.querySelector('.hint')
+}
+
+function createAccountElement() {
+  const container = document.createElement('div')
+  container.classList.add('account-summary')
+
+  return container
 }
 
 function createTransactionsContainer() {
@@ -73,14 +95,14 @@ function createListElement() {
 
 function createNameElement(accountName, bankName) {
   const nameEl = document.createElement('div')
-  nameEl.classList.add('transactions__name')
+  nameEl.classList.add('account')
 
   const accountNameEl = document.createElement('div')
-  accountNameEl.classList.add('transactions__account-name')
+  accountNameEl.classList.add('account__name')
   accountNameEl.textContent = accountName
 
   const bankNameEl = document.createElement('div')
-  bankNameEl.classList.add('transactions__bank-name')
+  bankNameEl.classList.add('account__bank')
   bankNameEl.textContent = bankName
 
   nameEl.append(accountNameEl, bankNameEl)
@@ -119,6 +141,28 @@ function createTransactionElement(dateAsStr, desc, amount) {
   return container
 }
 
+function createInfoList(entries) {
+  const listEl = document.createElement('ul')
+  listEl.classList.add('owner__info-list')
+
+  for (const element of getUniqueEntries(entries)) {
+    const { data, primary } = element
+    const itemEl = createInfoElement(data, { isPrimary: primary })
+
+    listEl.append(itemEl)
+  }
+
+  return listEl
+}
+
+function createInfoElement(text, { isPrimary = false } = {}) {
+  const itemEl = document.createElement('li')
+  itemEl.classList.add('owner__info-item')
+  itemEl.textContent = text
+
+  return itemEl
+}
+
 function handleOnListClick(evt) {
   const { target, altKey } = evt
 
@@ -130,4 +174,30 @@ function handleOnListClick(evt) {
 function collapseDetails(element) {
   const closestSpoilerEl = element.closest('details')
   closestSpoilerEl.open = false
+}
+
+function convertName(name) {
+  return { data: titleize(name) }
+}
+
+function convertEmail(emailEntry) {
+  const { data, ...rest } = emailEntry
+  return { ...rest, data: data.toLowerCase() }
+}
+
+function getUniqueEntries(entries) {
+  const result = []
+  const uniqueData = new Set()
+
+  for (const entry of entries) {
+    const { data } = entry
+    console.log(data)
+
+    if (!uniqueData.has(data)) {
+      uniqueData.add(data)
+      result.push(entry)
+    }
+  }
+
+  return result
 }
