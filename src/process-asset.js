@@ -18,14 +18,18 @@ function convertAssetItemForChart(itemInfo) {
 }
 
 function convertAccountForChart(account) {
-  const { historicalBalances, name } = account
-  const data = historicalBalances.map(convertBalanceForChart)
+  const { historicalBalances, name, subtype } = account
+  const data = historicalBalances.map((balance) => {
+    return convertBalanceForChart(balance, {
+      isCredit: subtype === 'credit card',
+    })
+  })
 
   return { data, name }
 }
 
-function convertBalanceForChart(balance) {
-  return balance.current
+function convertBalanceForChart(balance, { isCredit = false } = {}) {
+  return isCredit ? -balance.current : balance.current
 }
 
 function findLongestBalances(accounts) {
