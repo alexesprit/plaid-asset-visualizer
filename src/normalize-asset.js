@@ -1,3 +1,5 @@
+import { titleize } from './util'
+
 export function normalizeAsset(asset) {
   const { items, ...rest } = asset
   const normalizedItems = items.map(normalizeItem)
@@ -15,24 +17,36 @@ export function normalizeItem(item) {
 }
 
 function normalizeAccount(account) {
-  const { historicalBalances, name, mask, ...rest } = account
+  const { historicalBalances, name, ...rest } = account
+  const { mask, subtype } = rest
+
   const filteredBalances = historicalBalances.filter(filterLeadingZeroBalance)
-  const fullName = normalizeAccountName(name, mask)
+  const fullName = normalizeAccountName(name, mask, subtype)
 
   return {
     ...rest,
-    mask,
     name: fullName,
     historicalBalances: filteredBalances,
   }
 }
 
-function normalizeAccountName(accountName, mask) {
-  if (accountName.includes(mask)) {
-    return accountName
+function normalizeAccountName(accountName, mask, subtype) {
+  let newName = titleize(accountName)
+  let newNameLowerCase = newName.toLowerCase()
+
+  if (subtype === 'credit card' && !newNameLowerCase.includes('credit')) {
+    if (newNameLowerCase.includes('card')) {
+      newName = newName.replace(/Card/i, 'Credit Card')
+    } else {
+      newName = `${newName} Credit Card`
+    }
   }
 
-  return `${accountName} (${mask})`
+  if (newName.includes(mask)) {
+    return newName
+  }
+
+  return `${newName} (${mask})`
 }
 
 function shouldProcessAccount(account) {
