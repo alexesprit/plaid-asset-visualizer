@@ -2,7 +2,7 @@ import Chart from 'chart.js/auto'
 
 import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
-import { attachBinaryData, getFilename, setTitle } from './src/util'
+import {attachBinaryData, getFilename, setTitle, convertObjectKeysToCamelCase} from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
 import { convertAssetToXls } from './src/convert-asset'
 import { renderAccounts } from './src/render-accounts'
@@ -62,7 +62,8 @@ function readAsset(file) {
   reader.readAsText(file)
 
   reader.onloadend = async () => {
-    const rawAsset = JSON.parse(reader.result)
+    const rawAsset = convertObjectKeysToCamelCase(JSON.parse(reader.result))
+    console.log(rawAsset)
     const normalizedAsset = normalizeAsset(rawAsset)
 
     const assetAsChart = processAsset(normalizedAsset)

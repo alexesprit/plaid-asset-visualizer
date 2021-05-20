@@ -31,6 +31,40 @@ export function titleize(sentence) {
   return sentence.split(' ').map(titleizeWord).join(' ')
 }
 
+export function convertObjectKeysToCamelCase(o) {
+  let newO, origKey, newKey, value
+
+  if (o instanceof Array) {
+    return o.map(function(value) {
+      if (typeof value === "object") {
+        value = convertObjectKeysToCamelCase(value)
+      }
+      return value
+    })
+  } else {
+    newO = {}
+    for (origKey in o) {
+      if (o.hasOwnProperty(origKey)) {
+        newKey = (toCamel(origKey))
+        value = o[origKey]
+        if (value instanceof Array || (value !== null && value.constructor === Object)) {
+          value = convertObjectKeysToCamelCase(value)
+        }
+        newO[newKey] = value
+      }
+    }
+  }
+  return newO
+}
+
+const toCamel = (s) => {
+  return s.replace(/([-_][a-z])/ig, ($1) => {
+    return $1.toUpperCase()
+      .replace('-', '')
+      .replace('_', '');
+  });
+};
+
 function titleizeWord(word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase()
 }
