@@ -45,7 +45,7 @@ export function convertObjectKeysToCamelCase(o) {
     newO = {}
     for (origKey in o) {
       if (o.hasOwnProperty(origKey)) {
-        newKey = toCamel(origKey)
+        newKey = convertStringToCamelCase(origKey)
         value = o[origKey]
         if (
           value instanceof Array ||
@@ -60,8 +60,8 @@ export function convertObjectKeysToCamelCase(o) {
   return newO
 }
 
-const toCamel = (s) => {
-  return s.replace(/([-_][a-z])/gi, ($1) => {
+function convertStringToCamelCase(input) {
+  return input.replace(/([-_][a-z])/gi, ($1) => {
     return $1.toUpperCase().replace('-', '').replace('_', '')
   })
 }
