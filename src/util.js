@@ -35,8 +35,8 @@ export function convertObjectKeysToCamelCase(o) {
   let newO, origKey, newKey, value
 
   if (o instanceof Array) {
-    return o.map(function(value) {
-      if (typeof value === "object") {
+    return o.map(function (value) {
+      if (typeof value === 'object') {
         value = convertObjectKeysToCamelCase(value)
       }
       return value
@@ -45,9 +45,12 @@ export function convertObjectKeysToCamelCase(o) {
     newO = {}
     for (origKey in o) {
       if (o.hasOwnProperty(origKey)) {
-        newKey = (toCamel(origKey))
+        newKey = toCamel(origKey)
         value = o[origKey]
-        if (value instanceof Array || (value !== null && value.constructor === Object)) {
+        if (
+          value instanceof Array ||
+          (value !== null && value.constructor === Object)
+        ) {
           value = convertObjectKeysToCamelCase(value)
         }
         newO[newKey] = value
@@ -58,12 +61,10 @@ export function convertObjectKeysToCamelCase(o) {
 }
 
 const toCamel = (s) => {
-  return s.replace(/([-_][a-z])/ig, ($1) => {
-    return $1.toUpperCase()
-      .replace('-', '')
-      .replace('_', '');
-  });
-};
+  return s.replace(/([-_][a-z])/gi, ($1) => {
+    return $1.toUpperCase().replace('-', '').replace('_', '')
+  })
+}
 
 function titleizeWord(word) {
   return word[0].toUpperCase() + word.slice(1).toLowerCase()

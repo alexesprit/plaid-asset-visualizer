@@ -2,7 +2,12 @@ import Chart from 'chart.js/auto'
 
 import { processAsset } from './src/process-asset'
 import { renderCharts } from './src/render-chart'
-import {attachBinaryData, getFilename, setTitle, convertObjectKeysToCamelCase} from './src/util'
+import {
+  attachBinaryData,
+  getFilename,
+  setTitle,
+  convertObjectKeysToCamelCase,
+} from './src/util'
 import { normalizeAsset } from './src/normalize-asset'
 import { convertAssetToXls } from './src/convert-asset'
 import { renderAccounts } from './src/render-accounts'
