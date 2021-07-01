@@ -65,8 +65,14 @@ function setupAssetInput() {
 
 function handleDrop(evt) {
   const { dataTransfer } = evt
+  const selectedFile = dataTransfer.files[0]
 
-  readAsset(dataTransfer.files[0])
+  if (selectedFile.type !== 'application/json') {
+    alert('Unsupported file type')
+    return
+  }
+
+  readAsset(selectedFile)
 }
 
 function handleFileSelect() {
