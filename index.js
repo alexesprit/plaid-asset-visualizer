@@ -85,7 +85,6 @@ function readAsset(file) {
 
   reader.onloadend = async () => {
     const rawAsset = convertObjectKeysToCamelCase(JSON.parse(reader.result))
-    console.log(rawAsset)
     const normalizedAsset = normalizeAsset(rawAsset)
 
     const assetAsChart = processAsset(normalizedAsset)
