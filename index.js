@@ -47,8 +47,13 @@ function setupDragArea() {
   }
 
   function allowDrag(evt) {
-    evt.dataTransfer.dropEffect = 'copy'
-    evt.preventDefault()
+    const { dataTransfer } = evt
+
+    if (dataTransfer.types.includes('Files')) {
+      dataTransfer.dropEffect = 'copy'
+
+      evt.preventDefault()
+    }
   }
 }
 
