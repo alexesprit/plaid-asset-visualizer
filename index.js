@@ -18,38 +18,43 @@ setupAssetInput()
 Chart.defaults.font.family = 'Inter, sans-serif'
 
 function setupDragArea() {
-  const dropArea = document.querySelector('.drop-area')
+  const dropZone = document.querySelector('.dropzone')
 
-  function highlight() {
-    dropArea.classList.add('highlight')
+  window.addEventListener('dragenter', () => {
+    showDropZone()
+  })
+
+  dropZone.addEventListener('dragleave', () => {
+    hideDropZone()
+  })
+
+  dropZone.addEventListener('drop', (evt) => {
+    evt.preventDefault()
+
+    hideDropZone()
+    handleDrop(evt)
+  })
+
+  dropZone.addEventListener('dragenter', allowDrag)
+  dropZone.addEventListener('dragover', allowDrag)
+
+  function showDropZone() {
+    dropZone.style.display = 'block'
   }
 
-  function unhighlight() {
-    dropArea.classList.remove('highlight')
+  function hideDropZone() {
+    dropZone.style.display = 'none'
   }
 
-  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach((eventName) => {
-    dropArea.addEventListener(eventName, preventDefaults, false)
-  })
-  ;['dragenter', 'dragover'].forEach((eventName) => {
-    dropArea.addEventListener(eventName, highlight)
-  })
-  ;['dragleave', 'drop'].forEach((eventName) => {
-    dropArea.addEventListener(eventName, unhighlight)
-  })
-
-  dropArea.addEventListener('drop', handleDrop, false)
+  function allowDrag(evt) {
+    evt.preventDefault()
+  }
 }
 
 function setupAssetInput() {
-  const assertInput = document.querySelector('.drop-area__input')
+  const assertInput = document.querySelector('.form-area__input')
 
   assertInput.addEventListener('change', handleFileSelect)
-}
-
-function preventDefaults(e) {
-  e.preventDefault()
-  e.stopPropagation()
 }
 
 function handleDrop(evt) {
@@ -86,7 +91,7 @@ function readAsset(file) {
 function applyDataForDownloadButton(assetAsBinary, filename) {
   const fullname = `${filename}.xlsx`
 
-  const downloadButton = document.querySelector('.drop-area__download')
+  const downloadButton = document.querySelector('.form-area__download')
   downloadButton.hidden = false
 
   attachBinaryData(

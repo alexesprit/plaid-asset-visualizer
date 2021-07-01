@@ -61,16 +61,24 @@ li {
   }
 }
 
-.drop-area {
-  border: 1px dashed #ccc;
-  border-radius: 24px;
-  padding: 24px;
-  transition: border-color 0.3s;
-  text-align: center;
+.dropzone {
+  box-sizing: border-box;
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 99999;
 
-  &.highlight {
-    border-color: #16886b;
-  }
+  background: rgba(#16886b, 0.25);
+  border: 5px dashed #16886b;
+
+  animation: fadein 0.5s;
+}
+
+.form-area {
+  text-align: center;
 
   &__desc {
     margin: 0 0 16px;
@@ -254,4 +262,13 @@ li {
 
 [hidden] {
   display: none !important;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
