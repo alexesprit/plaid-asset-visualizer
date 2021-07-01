@@ -47,6 +47,7 @@ function setupDragArea() {
   }
 
   function allowDrag(evt) {
+    evt.dataTransfer.dropEffect = 'copy'
     evt.preventDefault()
   }
 }
