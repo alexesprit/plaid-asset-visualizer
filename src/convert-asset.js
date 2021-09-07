@@ -23,6 +23,7 @@ export function convertAssetToXls(asset) {
 
         balancesSheet.addRow({
           bank: bankName,
+          account: name,
           type: type,
           subtype: subtype,
           date: dateAsStr,
@@ -53,6 +54,11 @@ function createBalancesColumns() {
     {
       header: 'Bank name',
       key: 'bank',
+      width: 24,
+    },
+    {
+      header: 'Account name',
+      key: 'account',
       width: 24,
     },
     {
