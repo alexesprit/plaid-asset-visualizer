@@ -32,7 +32,7 @@ export function convertAssetToXls(asset) {
       }
 
       for (const transaction of [...transactions].reverse()) {
-        const { date, amount, originalDescription } = transaction
+        const { date, amount, originalDescription, category } = transaction
         const dateAsStr = convertDate(date)
 
         transactionsSheet.addRow({
@@ -41,6 +41,7 @@ export function convertAssetToXls(asset) {
           date: dateAsStr,
           desc: originalDescription,
           amount: -amount,
+          category: category && category.join(', '),
         })
       }
     }
@@ -116,6 +117,11 @@ function createTransactionColumns() {
       style: {
         numFmt: currencyFormat,
       },
+    },
+    {
+      header: 'Category',
+      key: 'category',
+      width: 32,
     },
   ]
 }
