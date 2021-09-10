@@ -40,13 +40,14 @@ function createTransactionsContainer(transactions) {
   const reversedTransactions = [...transactions].reverse()
 
   for (const transaction of reversedTransactions) {
-    const { date, originalDescription, amount } = transaction
+    const { date, originalDescription, amount, category } = transaction
     const dateAsStr = convertDate(date)
 
     const transactionEl = createTransactionElement(
       dateAsStr,
       originalDescription,
-      amount
+      amount,
+      category
     )
 
     listEl.append(transactionEl)
@@ -130,10 +131,7 @@ function createSpoilerElement() {
   return detailsEl
 }
 
-function createTransactionElement(dateAsStr, desc, amount) {
-  const container = document.createElement('li')
-  container.classList.add('transaction')
-
+function createTransactionElement(dateAsStr, desc, amount, categories = []) {
   const dateEl = document.createElement('span')
   dateEl.classList.add('transaction__date')
   dateEl.textContent = dateAsStr
@@ -148,7 +146,30 @@ function createTransactionElement(dateAsStr, desc, amount) {
   amountEl.classList.add('transaction__amount', colorClass)
   amountEl.textContent = `$${formatCurrency(Math.abs(amount))}`
 
-  container.append(dateEl, descEl, amountEl)
+  const infoContainer = document.createElement('div')
+  infoContainer.classList.add('transaction__info')
+  infoContainer.append(dateEl, descEl, amountEl)
+
+  const container = document.createElement('li')
+  container.classList.add('transaction')
+  container.append(infoContainer)
+
+  if (categories.length > 0) {
+    const categoriesContainer = document.createElement('div')
+    categoriesContainer.classList.add('transaction__categories')
+
+    const categoryEls = categories.map((category) => {
+      const categoryEl = document.createElement('span')
+      categoryEl.classList.add('transaction__category')
+      categoryEl.textContent = category
+
+      return categoryEl
+    })
+
+    categoriesContainer.append(...categoryEls)
+    container.append(categoriesContainer)
+  }
+
   return container
 }
 

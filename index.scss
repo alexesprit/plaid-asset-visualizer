@@ -192,11 +192,27 @@ li {
 }
 
 .transaction {
-  display: flex;
   font-size: 12px;
 
-  &:not(:last-child) {
-    margin-bottom: 8px;
+  &__info {
+    display: flex;
+  }
+
+  &__categories {
+    margin-top: 4px;
+    font-size: 10px;
+    padding-left: 80px;
+  }
+
+  &__category {
+    border: 1px solid #ccc;
+    background: #eee;
+    border-radius: 4px;
+    padding: 2px;
+
+    &:not(:first-child) {
+      margin-left: 4px;
+    }
   }
 
   &__date {
@@ -225,6 +241,10 @@ li {
     &.credit {
       color: #d4122a;
     }
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 8px;
   }
 }
 
