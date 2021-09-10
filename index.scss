@@ -202,6 +202,17 @@ li {
     margin-top: 4px;
     font-size: 10px;
     padding-left: 80px;
+
+    span:not(:first-child) {
+      margin-left: 4px;
+    }
+  }
+
+  &__type {
+    border: 1px solid #c2d7d3;
+    background: #eefdf7;
+    border-radius: 4px;
+    padding: 2px;
   }
 
   &__category {
@@ -209,10 +220,6 @@ li {
     background: #eee;
     border-radius: 4px;
     padding: 2px;
-
-    &:not(:first-child) {
-      margin-left: 4px;
-    }
   }
 
   &__date {

@@ -40,14 +40,21 @@ function createTransactionsContainer(transactions) {
   const reversedTransactions = [...transactions].reverse()
 
   for (const transaction of reversedTransactions) {
-    const { date, originalDescription, amount, category } = transaction
+    const {
+      date,
+      originalDescription,
+      amount,
+      category,
+      transactionType,
+    } = transaction
     const dateAsStr = convertDate(date)
 
     const transactionEl = createTransactionElement(
       dateAsStr,
       originalDescription,
       amount,
-      category
+      category,
+      transactionType
     )
 
     listEl.append(transactionEl)
@@ -131,7 +138,13 @@ function createSpoilerElement() {
   return detailsEl
 }
 
-function createTransactionElement(dateAsStr, desc, amount, categories = []) {
+function createTransactionElement(
+  dateAsStr,
+  desc,
+  amount,
+  categories = [],
+  type = null
+) {
   const dateEl = document.createElement('span')
   dateEl.classList.add('transaction__date')
   dateEl.textContent = dateAsStr
@@ -166,7 +179,11 @@ function createTransactionElement(dateAsStr, desc, amount, categories = []) {
       return categoryEl
     })
 
-    categoriesContainer.append(...categoryEls)
+    const typeEl = document.createElement('span')
+    typeEl.classList.add('transaction__type')
+    typeEl.textContent = titleize(type)
+
+    categoriesContainer.append(typeEl, ...categoryEls)
     container.append(categoriesContainer)
   }
 
