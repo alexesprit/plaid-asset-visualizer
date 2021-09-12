@@ -6,5 +6,6 @@
     "src": "favicon.png",
     "sizes": "256x256",
     "type": "image/png"
-  }]
+  }],
+  "theme_color": "#43aa8b"
 }
