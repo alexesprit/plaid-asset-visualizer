@@ -1,0 +1,10 @@
+{
+  "name": "Plaid Asset Visualizer",
+  "short_name": "Plaid Asset Visualizer",
+  "description": "Visualize your Plaid asset reports.",
+  "icons": [{
+    "src": "favicon.png",
+    "sizes": "256x256",
+    "type": "image/png"
+  }]
+}
