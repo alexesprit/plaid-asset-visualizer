@@ -167,7 +167,7 @@ function createTransactionElement(
   container.classList.add('transaction')
   container.append(infoContainer)
 
-  if (categories.length > 0) {
+  if (categories && categories.length > 0) {
     const categoriesContainer = document.createElement('div')
     categoriesContainer.classList.add('transaction__categories')
 
