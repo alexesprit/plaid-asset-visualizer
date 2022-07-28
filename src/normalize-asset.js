@@ -20,13 +20,13 @@ function normalizeAccount(account) {
   const { historicalBalances, name, ...rest } = account
   const { mask, subtype } = rest
 
-  const filteredBalances = historicalBalances.filter(filterLeadingZeroBalance)
+  // const filteredBalances = historicalBalances.filter(filterLeadingZeroBalance)
   const fullName = normalizeAccountName(name, mask, subtype)
 
   return {
     ...rest,
     name: fullName,
-    historicalBalances: filteredBalances,
+    historicalBalances: historicalBalances,
   }
 }
 
